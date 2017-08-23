@@ -1,0 +1,14 @@
+|| ===================================================
+|| ===================================================
+|| AddessBook Level 1 - Version 1.0
+|| Welcome to your Address Book!
+|| ===================================================
+|| Using default storage file : addressbook.txt
+|| Enter command: || [Command entered:list]
+|| 
+|| 0 persons found!
+|| ===================================================
+|| Enter command: || [Command entered:exit]
+|| Exiting Address Book... Good bye!
+|| ===================================================
+|| ===================================================
