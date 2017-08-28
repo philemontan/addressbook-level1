@@ -183,9 +183,7 @@ public class AddressBook {
 
     private static HashMap<String,String> convertPersonArrToHash(String[] person){
         HashMap<String,String> temp = new HashMap<>();
-        temp.put(PERSON_PROPERTY_NAME, person[PERSON_DATA_INDEX_NAME]);
-        temp.put(PERSON_PROPERTY_EMAIL, person[PERSON_DATA_INDEX_EMAIL]);
-        temp.put(PERSON_PROPERTY_NUMBER, person[PERSON_DATA_INDEX_PHONE]);
+        setPerson(person[PERSON_DATA_INDEX_NAME], person[PERSON_DATA_INDEX_PHONE], person[PERSON_DATA_INDEX_EMAIL], temp);
         return temp;
     }
 
@@ -891,10 +889,14 @@ public class AddressBook {
     private static HashMap<String,String> makePersonFromData(String name, String phone, String email) {
 //        final String[] person = new String[PERSON_DATA_COUNT];
         final HashMap<String, String> person = new HashMap<>();
+        setPerson(name, phone, email, person);
+        return person;
+    }
+
+    private static void setPerson(String name, String phone, String email, HashMap<String, String> person) {
         person.put(PERSON_PROPERTY_NAME, name);
         person.put(PERSON_PROPERTY_EMAIL, email);
         person.put(PERSON_PROPERTY_NUMBER, phone);
-        return person;
     }
 
     /**
