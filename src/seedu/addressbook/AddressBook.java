@@ -233,7 +233,7 @@ public class AddressBook {
      */
 
     private static void showWelcomeMessage() {
-        showToUser(new String[]{DIVIDER, DIVIDER, VERSION, MESSAGE_WELCOME, DIVIDER});
+        showToUser(DIVIDER, DIVIDER, VERSION, MESSAGE_WELCOME, DIVIDER);
     }
 
     private static void showResultToUser(String result) {
@@ -624,16 +624,16 @@ public class AddressBook {
     /**
      * Shows a message to the user
      */
-//    private static void showToUser(String... message) {
-//        for (String m : message) {
-//            System.out.println(LINE_PREFIX + m);
-//        }
-//    }
-    private static void showToUser(String[] message) {
-        for(int x=0; x<message.length; x++) {
-            System.out.println(LINE_PREFIX + message[x]);
+    private static void showToUser(String... message) {
+        for (String m : message) {
+            System.out.println(LINE_PREFIX + m);
         }
     }
+//    private static void showToUser(String[] message) {
+//        for(int x=0; x<message.length; x++) {
+//            System.out.println(LINE_PREFIX + message[x]);
+//        }
+//    }
 
     /**
      * Shows the list of persons to the user.
