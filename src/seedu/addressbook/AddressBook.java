@@ -453,7 +453,7 @@ public class AddressBook {
         for(HashMap<String,String> existingPerson: ALL_PERSONS) {
             ArrayList<String> duplicateTerms = checkDuplicateTerms(inputPerson, existingPerson);
             if(!duplicateTerms.isEmpty()) {
-                System.out.println("Duplicated Person found:");
+                showToUser("Duplicated Person found:");
                 showToUser(getMessageForFormattedPersonData(existingPerson));
                 String duplicateTermsStr = "Duplicate Terms: ";
                 for(String key : duplicateTerms) {
@@ -462,8 +462,6 @@ public class AddressBook {
                 showToUser(duplicateTermsStr);
             }
         }
-
-
 
         // add the person as specified
         final HashMap<String,String> personToAdd = decodeResult.get();
@@ -475,6 +473,16 @@ public class AddressBook {
     //property in an ArrayList<String>
     private static ArrayList<String> checkDuplicateTerms(HashMap<String,String> inputPerson, HashMap<String,String> existingPerson) {
         ArrayList<String> duplicateTerms = new ArrayList<String>();
+        if(inputPerson.get(PERSON_PROPERTY_NAME).equalsIgnoreCase(existingPerson.get(PERSON_PROPERTY_NAME))){
+            duplicateTerms.add(PERSON_PROPERTY_NAME);
+        }
+        if(inputPerson.get(PERSON_PROPERTY_EMAIL).equalsIgnoreCase(existingPerson.get(PERSON_PROPERTY_EMAIL))){
+            duplicateTerms.add(PERSON_PROPERTY_EMAIL);
+        }
+        if(inputPerson.get(PERSON_PROPERTY_NUMBER).equalsIgnoreCase(existingPerson.get(PERSON_PROPERTY_NUMBER))){
+            duplicateTerms.add(PERSON_PROPERTY_NUMBER);
+        }
+
         return duplicateTerms;
     }
 
