@@ -441,6 +441,7 @@ public class AddressBook {
      * @return feedback display message for the operation result
      */
     private static String executeAddPerson(String commandArgs) {
+        boolean duplicateFound = false;
         // try decoding a person from the raw args
         final Optional<HashMap<String,String>> decodeResult = decodePersonFromString(commandArgs);
 
@@ -454,6 +455,7 @@ public class AddressBook {
         for(HashMap<String,String> existingPerson: ALL_PERSONS) {
             ArrayList<String> duplicateTerms = checkDuplicateTerms(inputPerson, existingPerson);
             if(!duplicateTerms.isEmpty()) {
+                duplicateFound = true;
                 String duplicateTermsStr = "";
                 for(int a=0; a<duplicateTerms.size(); a++){
                     duplicateTermsStr += duplicateTerms.get(a);
@@ -465,11 +467,30 @@ public class AddressBook {
                 showToUser(getMessageForFormattedPersonData(existingPerson));
             }
         }
-
-        // add the person as specified
+        if(duplicateFound) {
+            String continueAddingChoice;
+            while(true) {
+                showToUser("Continue Adding?(y/n)");
+                continueAddingChoice = SCANNER.nextLine();
+                if(continueAddingChoice.equals("y") || continueAddingChoice.equals("n")){
+                    break;
+                }
+            }
+            // add the person as specified
+            if(continueAddingChoice.equals("y")) {
+                final HashMap<String,String> personToAdd = decodeResult.get();
+                addPersonToAddressBook(personToAdd);
+                return getMessageForSuccessfulAddPerson(personToAdd);
+            }
+            else{
+                return "Input person not added";
+            }
+        }
+        // no duplicates, add normally
         final HashMap<String,String> personToAdd = decodeResult.get();
         addPersonToAddressBook(personToAdd);
         return getMessageForSuccessfulAddPerson(personToAdd);
+
     }
 
     //Compares 2 hashmaps representing 2 ppl, and if duplicate terms are found, returns the KEY(s) of the duplicated
