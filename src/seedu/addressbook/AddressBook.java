@@ -199,6 +199,7 @@ public class AddressBook {
     private static final String PERSON_PROPERTY_NAME = "name";
     private static final String PERSON_PROPERTY_EMAIL = "email";
     private static final String PERSON_PROPERTY_NUMBER = "number";
+    private static final String[] PERSON_PROPERTIES_ARRAY ={PERSON_PROPERTY_NAME,PERSON_PROPERTY_EMAIL,PERSON_PROPERTY_NUMBER};
     private static final ArrayList<HashMap<String,String>> ALL_PERSONS =  new ArrayList<HashMap<String, String>>();
 
     private static HashMap<String,String> convertPersonArrToHash(String[] person){
@@ -453,13 +454,15 @@ public class AddressBook {
         for(HashMap<String,String> existingPerson: ALL_PERSONS) {
             ArrayList<String> duplicateTerms = checkDuplicateTerms(inputPerson, existingPerson);
             if(!duplicateTerms.isEmpty()) {
-                showToUser("Duplicated Person found:");
-                showToUser(getMessageForFormattedPersonData(existingPerson));
-                String duplicateTermsStr = "Duplicate Terms: ";
-                for(String key : duplicateTerms) {
-                    duplicateTermsStr += key + ", ";
+                String duplicateTermsStr = "";
+                for(int a=0; a<duplicateTerms.size(); a++){
+                    duplicateTermsStr += duplicateTerms.get(a);
+                    if(a!=duplicateTerms.size()-1) {
+                        duplicateTermsStr +=", ";
+                    }
                 }
-                showToUser(duplicateTermsStr);
+                showToUser("Possible duplicate found // duplicate terms: " + duplicateTermsStr);
+                showToUser(getMessageForFormattedPersonData(existingPerson));
             }
         }
 
@@ -473,16 +476,11 @@ public class AddressBook {
     //property in an ArrayList<String>
     private static ArrayList<String> checkDuplicateTerms(HashMap<String,String> inputPerson, HashMap<String,String> existingPerson) {
         ArrayList<String> duplicateTerms = new ArrayList<String>();
-        if(inputPerson.get(PERSON_PROPERTY_NAME).equalsIgnoreCase(existingPerson.get(PERSON_PROPERTY_NAME))){
-            duplicateTerms.add(PERSON_PROPERTY_NAME);
+        for(String PROPERTY : PERSON_PROPERTIES_ARRAY) {
+            if(inputPerson.get(PROPERTY).equalsIgnoreCase(existingPerson.get(PROPERTY))){
+                duplicateTerms.add(PROPERTY);
+            }
         }
-        if(inputPerson.get(PERSON_PROPERTY_EMAIL).equalsIgnoreCase(existingPerson.get(PERSON_PROPERTY_EMAIL))){
-            duplicateTerms.add(PERSON_PROPERTY_EMAIL);
-        }
-        if(inputPerson.get(PERSON_PROPERTY_NUMBER).equalsIgnoreCase(existingPerson.get(PERSON_PROPERTY_NUMBER))){
-            duplicateTerms.add(PERSON_PROPERTY_NUMBER);
-        }
-
         return duplicateTerms;
     }
 
