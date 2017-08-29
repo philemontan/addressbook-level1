@@ -428,11 +428,37 @@ public class AddressBook {
             return getMessageForInvalidCommandInput(COMMAND_ADD_WORD, getUsageInfoForAddCommand());
         }
 
+        // check if person already exist ==> as long as 1 criteria is same, flags out
+        HashMap<String,String> inputPerson = decodeResult.get();
+        for(HashMap<String,String> existingPerson: ALL_PERSONS) {
+            ArrayList<String> duplicateTerms = checkDuplicateTerms(inputPerson, existingPerson);
+            if(!duplicateTerms.isEmpty()) {
+                System.out.println("Duplicated Person found:");
+                showToUser(getMessageForFormattedPersonData(existingPerson));
+                String duplicateTermsStr = "Duplicate Terms: ";
+                for(String key : duplicateTerms) {
+                    duplicateTermsStr += key + ", ";
+                }
+                showToUser(duplicateTermsStr);
+            }
+        }
+
+
+
         // add the person as specified
         final HashMap<String,String> personToAdd = decodeResult.get();
         addPersonToAddressBook(personToAdd);
         return getMessageForSuccessfulAddPerson(personToAdd);
     }
+
+    //Compares 2 hashmaps representing 2 ppl, and if duplicate terms are found, returns the KEY(s) of the duplicated
+    //property in an ArrayList<String>
+    private static ArrayList<String> checkDuplicateTerms(HashMap<String,String> inputPerson, HashMap<String,String> existingPerson) {
+        ArrayList<String> duplicateTerms = new ArrayList<String>();
+        return duplicateTerms;
+    }
+
+
 
     /**
      * Constructs a feedback message for a successful add person command execution.
