@@ -603,11 +603,16 @@ public class AddressBook {
      * @return whether it is valid
      */
     private static boolean isDisplayIndexValidForLastPersonListingView(int index) {
-        return index >= DISPLAYED_INDEX_OFFSET && index < latestPersonListingView.size() + DISPLAYED_INDEX_OFFSET;
+        boolean indexMoreThanDisplayedOffset = index >= DISPLAYED_INDEX_OFFSET;
+        boolean indexLessThanLatestPersonListingViewWithOffset = index <
+                latestPersonListingView.size() +
+                DISPLAYED_INDEX_OFFSET;
+
+        return indexMoreThanDisplayedOffset && indexLessThanLatestPersonListingViewWithOffset;
     }
 
     /**
-     * Constructs a feedback message for a successful delete person command execution.
+     * Constructs a feedback message for a successful delete person command execsution.
      *
      * @see #executeDeletePerson(String)
      * @param deletedPerson successfully deleted
@@ -1023,7 +1028,6 @@ public class AddressBook {
      *         else: Optional containing decoded persons
      */
     private static Optional<ArrayList<HashMap<String,String>>> decodePersonsFromStrings(ArrayList<String> encodedPersons) {
-//        final ArrayList<String[]> decodedPersons = new ArrayList<>();
         final ArrayList<HashMap<String, String>> decodedPersons = new ArrayList<HashMap<String, String>>();
         for (String encodedPerson : encodedPersons) {
             final Optional<HashMap<String, String>> decodedPerson = decodePersonFromString(encodedPerson);
