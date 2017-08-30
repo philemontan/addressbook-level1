@@ -1,21 +1,5 @@
 package seedu.addressbook;
 
-//Start of Google API imports-- googleContacts
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*
  * NOTE : =============================================================
  * This class is written in a procedural fashion (i.e. not Object-Oriented)
@@ -47,7 +31,6 @@ public class AddressBook {
 
     // google contacts api read only scope
     private static final String GOOGLE_CONTACTS_API_SCOPE = "https://www.googleapis.com/auth/contacts.readonly";
-
 
     /**
      * Default file path used if the user doesn't provide the file name.
@@ -302,7 +285,6 @@ public class AddressBook {
      * Exits if the file name is not acceptable.
      */
     private static void setupGivenFileForStorage(String filePath) {
-
         if (!isValidFilePath(filePath)) {
             showToUser(new String[]{String.format(MESSAGE_INVALID_FILE, filePath)});
             exitProgram();
